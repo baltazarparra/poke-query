@@ -1,5 +1,7 @@
+const loading = document.querySelector('.loading')
 const listPokemons = document.querySelector('#pokemons')
 const details = document.querySelector('#details')
+const container = document.querySelector('.not-loaded')
 
 function main(limit = 5) {
     const pokemons = `{
@@ -12,7 +14,11 @@ function main(limit = 5) {
     }
     `
     requestApi(pokemons)
-        .then(res => showPokemons(res.pokemons))
+        .then(res => {
+            loading.innerHTML = ''
+            container.classList.remove('not-loaded')
+            return showPokemons(res.pokemons)
+        })
 }
 
 function getOnePokemon(id) {
